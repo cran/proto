@@ -41,17 +41,19 @@ same proto or environment the results are undefined.
 No value is returned.
 }
 
-\note{To create PDF files on Windows from a \code{.dot} file created
+\note{
+To create PDF files on Windows from a \code{.dot} file created
 by \code{dot.proto} issue the following command at the Windows console
 \code{dot -Tps2 myfile.dot -o myfile.ps} and then use a postscript to
 PDF translator.  For example, with Ghostscript the command 
 \code{ps2pdf myfile.ps myfile.pdf} can be used where the ps2pdf
 command can be found at \code{/gs/.../lib/ps2pdf.bat} and 
-\code{...} will depend on the version of ghostscript.}
+\code{...} will depend on the version of ghostscript.
 
-\node{This function may be revised to use \code{GraphViz} via 
+This function may be revised to use \code{GraphViz} via 
 the \code{RGraphViz} package if and when
-that package is ported to all common operating systems.}
+that package is ported to all common operating systems.
+}
 
 \references{
   \url{http://www.graphviz.org}
