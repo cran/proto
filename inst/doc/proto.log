@@ -1,0 +1,357 @@
+This is pdfeTeX, Version 3.141592-1.11b-2.1 (MiKTeX 2.4) (preloaded format=latex 2004.4.1)  26 JAN 2005 10:26
+entering extended mode
+**proto.tex
+(proto.tex{pdftex.cfg}
+LaTeX2e <2003/12/01>
+Babel <v3.8a> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+(proto-raw.tex (Z.cls
+Document Class: Z 2004/10/08 1.0 Z class by Achim Zeileis
+(C:\texmf\tex\latex\base\article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(C:\texmf\tex\latex\base\size10.clo
+File: size10.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (C:\texmf\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(C:\texmf\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+) (C:\texmf\tex\latex\graphics\graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+(C:\texmf\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (C:\texmf\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2003/03/12 v1.1 MiKTeX 'graphics' configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 80.
+(C:\texmf\tex\latex\graphics\pdftex.def
+File: pdftex.def 2000/06/16 v0.03a graphics/color for pdftex
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+) (C:\texmf\tex\latex\ltxmisc\a4wide.sty
+Package: a4wide 1994/08/30
+(C:\texmf\tex\latex\ntgclass\a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+)) (C:\texmf\tex\latex\graphics\color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+(C:\texmf\tex\latex\00miktex\color.cfg
+File: color.cfg 2003/03/08 v1.0 MiKTeX 'color' configuration
+)
+Package color Info: Driver file: pdftex.def on input line 125.
+) (C:\texmf\tex\latex\hyperref\hyperref.sty
+Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
+\@linkdim=\dimen105
+\Hy@linkcounter=\count88
+\Hy@pagecounter=\count89
+(C:\texmf\tex\latex\hyperref\pd1enc.def
+File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+) (C:\texmf\tex\latex\00miktex\hyperref.cfg
+File: hyperref.cfg 2003/03/08 v1.0 MiKTeX 'hyperref' configuration
+)
+Package hyperref Info: Hyper figures OFF on input line 1880.
+Package hyperref Info: Link nesting OFF on input line 1885.
+Package hyperref Info: Hyper index ON on input line 1888.
+Package hyperref Info: Plain pages ON on input line 1893.
+Package hyperref Info: Backreferencing OFF on input line 1900.
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 2004.
+(C:\texmf\tex\latex\ltxmisc\url.sty
+\Urlmuskip=\muskip10
+Package: url 2003/11/24  ver 3.0  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 2143.
+\Fld@menulength=\count90
+\Field@Width=\dimen106
+\Fld@charsize=\dimen107
+\Choice@toks=\toks15
+\Field@toks=\toks16
+Package hyperref Info: Hyper figures OFF on input line 2618.
+Package hyperref Info: Link nesting OFF on input line 2623.
+Package hyperref Info: Hyper index ON on input line 2626.
+Package hyperref Info: backreferencing OFF on input line 2633.
+Package hyperref Info: Link coloring OFF on input line 2638.
+\c@Item=\count91
+\c@Hfootnote=\count92
+)
+*hyperref using default driver hpdftex*
+(C:\texmf\tex\latex\hyperref\hpdftex.def
+File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
+(C:\texmf\tex\latex\psnfss\pifont.sty
+Package: pifont 2004/01/26 PSNFSS-v9.1b Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+(C:\texmf\tex\latex\psnfss\upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+(C:\texmf\tex\latex\psnfss\upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+\Fld@listcount=\count93
+\@outlinefile=\write3
+) (C:\texmf\tex\latex\ae\ae.sty
+Package: ae 2001/02/12 1.3 Almost European Computer Modern
+(C:\texmf\tex\latex\base\fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+(C:\texmf\tex\latex\base\t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+(C:\texmf\tex\latex\ae\t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+))) (C:\texmf\tex\latex\fancyvrb\fancyvrb.sty
+Package: fancyvrb 1998/07/17
+Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
+\FV@CodeLineNo=\count94
+\FV@InFile=\read1
+\FV@TabBox=\box26
+\c@FancyVerbLine=\count95
+\FV@StepNumber=\count96
+\FV@OutFile=\write4
+No file fancyvrb.cfg.
+) (C:\texmf\tex\generic\thumbpdf\thumbpdf.sty
+Package: thumbpdf 2003/06/06 v3.4 Inclusion of thumbnails (HO)
+
+Package thumbpdf Warning: Thumbnail data file `proto.tpt' not found.
+
+) (C:\texmf\tex\latex\base\fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+(C:\texmf\tex\latex\base\t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)) (C:\texmf\tex\latex\natbib\natbib.sty
+Package: natbib 2003/06/06 7.1 (PWD)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 518.
+\c@NAT@ctr=\count97
+)
+\preXLskip=\skip45
+\preLskip=\skip46
+\preMskip=\skip47
+\preSskip=\skip48
+\postMskip=\skip49
+\postSskip=\skip50
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 164.
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 164.
+Package hyperref Info: Option `linktocpage' set `true' on input line 164.
+Package hyperref Info: Option `plainpages' set `false' on input line 164.
+)
+\half=\skip51
+(proto.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+(C:\texmf\tex\context\base\supp-pdf.tex (C:\texmf\tex\context\base\supp-mis.tex
+loading : Context Support Macros / Miscellaneous 
+\protectiondepth=\count98
+\scratchcounter=\count99
+\scratchtoks=\toks17
+\scratchdimen=\dimen108
+\scratchskip=\skip52
+\scratchmuskip=\muskip11
+\scratchbox=\box27
+\scratchread=\read2
+\scratchwrite=\write5
+\zeropoint=\dimen109
+\onepoint=\dimen110
+\minusone=\count100
+\thousandpoint=\dimen111
+\emptytoks=\toks18
+\nextbox=\box28
+\nextdepth=\dimen112
+\everyline=\toks19
+\!!counta=\count101
+\!!countb=\count102
+\recursecounter=\count103
+)
+loading : Context Support Macros / PDF
+\nofMPsegments=\count104
+\nofMParguments=\count105
+\everyMPtoPDFconversion=\toks20
+)
+Package hyperref Info: Link coloring ON on input line 43.
+(C:\texmf\tex\latex\hyperref\nameref.sty
+Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
+\c@section@level=\count106
+)
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+(proto.out) (proto.out)
+LaTeX Font Info:    Try loading font information for T1+aess on input line 43.
+(C:\texmf\tex\latex\ae\t1aess.fd
+File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 43.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 43.
+(C:\texmf\tex\latex\ae\t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+) [1
+
+{psfonts.map}]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 100.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 100.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[]/aer10/2 []
+ []
+
+[2]
+
+LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
+(Font)              using `T1/aett/m/n' instead on input line 173.
+
+
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[][] /aer10/3
+ []
+
+[3]
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[]/aer10/4 []
+ []
+
+[4]
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[][] /aer10/5
+ []
+
+[5] (proto-dot.tex
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[]/aer10/6 []
+ []
+
+[6]) <test.pdf 426.59375pt, 253.94875pt, image 211>
+File: test.pdf Graphic file (type pdf)
+<use test.pdf>
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[][] /aer10/7
+ []
+
+[7 <test.pdf>] (proto-smoothing03.tex) <proto-smoothing03.pdf 433.62pt, 216.81p
+t, image 221>
+File: proto-smoothing03.pdf Graphic file (type pdf)
+<use proto-smoothing03.pdf>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(proto-smoothing04.tex) <proto-smoothing04.pdf 433.62pt, 361.35pt, image 222>
+File: proto-smoothing04.pdf Graphic file (type pdf)
+<use proto-smoothing04.pdf>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[]/aer10/8 []
+ []
+
+[8]
+Overfull \hbox (5.0pt too wide) has occurred while \output is active
+[][] /aer10/9
+ []
+
+[9 <proto-smoothing03.pdf> <proto-smoothing04.pdf>] (proto-smoothing06.tex) <pr
+oto-smoothing06.pdf 433.62pt, 216.81pt, image 253>
+File: proto-smoothing06.pdf Graphic file (type pdf)
+<use proto-smoothing06.pdf> <proto-smoothing10.pdf 433.62pt, 216.81pt, image 25
+4>
+File: proto-smoothing10.pdf Graphic file (type pdf)
+<use proto-smoothing10.pdf> <cloning3.pdf 133.49875pt, 181.67876pt, image 255>
+File: cloning3.pdf Graphic file (type pdf)
+<use cloning3.pdf>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[]/aer10/10 []
+ []
+
+[10 <proto-smoothing06.pdf>]
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[][] /aer10/11
+ []
+
+[11 <proto-smoothing10.pdf> <cloning3.pdf>]
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[]/aer10/12 []
+ []
+
+[12]
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[][] /aer10/13
+ []
+
+[13] (proto.bbl
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[]/aer10/14 []
+ []
+
+[14])
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[][] /aer10/15
+ []
+
+[15] (protoref-raw.tex)
+Overfull \hbox (10.0pt too wide) has occurred while \output is active
+[]/aer10/16 []
+ []
+
+[16] (proto.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) ) 
+Here is how much of TeX's memory you used:
+ 3937 strings out of 95482
+ 49826 string characters out of 1189311
+ 102048 words of memory out of 1101728
+ 6739 multiletter control sequences out of 35000
+ 55931 words of font info for 102 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 607
+ 37i,8n,34p,273b,321s stack positions out of 1500i,500n,5000p,200000b,32768s
+ 343 PDF objects out of 65536
+ 69 named destinations out of 20000
+ 183 words of extra memory for PDF output out of 65536
+<cmbx10.pfb><cmsy7.pfb><cmsy10.pfb><cmmi7.pfb><cmsltt10.pfb><cmtt12.pfb><cm
+r8.pfb><cmr6.pfb><cmr7.pfb><cmssi10.pfb><cmsl10.pfb><cmtt10.pfb><cmss10.pfb><cm
+ti10.pfb><cmtt9.pfb><cmss9.pfb><cmr9.pfb><cmbx9.pfb><cmr10.pfb><cmssbx10.pfb><c
+mbx12.pfb><cmb10.pfb>
+Output written on proto.pdf (16 pages, 454546 bytes).
