@@ -8,7 +8,7 @@ among proto objects.
 oriented system.
 }
 \usage{
-dot.proto(e = if (exists("that")) that else parent.frame(), 
+dot.proto(e = if (exists(".that")) .that else parent.frame(), 
      file = "", control)
 }
 \arguments{
@@ -16,11 +16,11 @@ dot.proto(e = if (exists("that")) that else parent.frame(),
     Defaults to current environment.}
   \item{file}{file where \code{dot} ouput is placed.  Defaults to standard 
     output.}
-  \item{control}{a list of parameters that affect the grahical display.  
+  \item{control}{a list of parameters .that affect the grahical display.  
     It may be omitted.  If specified, only specify those components for
     which the default is not desired. The components are \code{include}
     and \code{arrow.from.child}.  \code{include} is a string of
-    GraphViz dot commands that are included in the output.
+    GraphViz dot commands .that are included in the output.
     \code{arrow.from.child} causes arrows to point from children to 
     parents if \code{TRUE} and otherwise from parents to children.}
 }
@@ -31,7 +31,7 @@ dot.proto(e = if (exists("that")) that else parent.frame(),
 transformed to postscript or other displayable graphics format
 using the \code{GraphViz} \code{dot} command to graphically
 display the relationship among proto objects.  Proto objects are
-identified by the contents of their \code{.Name} component, if any,
+identified by the contents of their \code{..Name} component, if any,
 or else by their name, if available, or else by the hash value of 
 their environment.  If there are mulitple variables holding the
 same proto or environment the results are undefined.
@@ -49,6 +49,10 @@ PDF translator.  For example, with Ghostscript the command
 command can be found at \code{/gs/.../lib/ps2pdf.bat} and 
 \code{...} will depend on the version of ghostscript.}
 
+\node{This function may be revised to use \code{GraphViz} via 
+the \code{RGraphViz} package if and when
+that package is ported to all common operating systems.}
+
 \references{
   \url{http://www.graphviz.org}
   \url{http://www.ghostscript.com}
@@ -58,8 +62,8 @@ command can be found at \code{/gs/.../lib/ps2pdf.bat} and
 \seealso{\code{\link{proto}}}
 
 \examples{
-a <- proto( .Name = "a" )
-b <- a$proto( .Name = "b" )
+a <- proto( ..Name = "a" )
+b <- a$proto( ..Name = "b" )
 dot.proto()
 dot.proto(control = list(include = "") )  # different appearance
 # or 

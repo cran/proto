@@ -8,14 +8,14 @@
   to the parent of \code{envir} or the current environment if \code{envir}
   is missing. \code{expr} and \code{\dots} default
   to empty specifications.
-  The returned object will contain \code{that} and \code{super} variables
+  The returned object will contain \code{.that} and \code{.super} variables
   referring to the object itself and the parent of the object, respectively.
   \\[0.5cm]
 
 \multicolumn{2}{l}{\textbf{Coercion}} \\
   \code{as.proto} & If \code{x} is a \code{proto} object or environment
   then \code{x} is returned as a \code{proto} object
-  with the values of \code{that} and \code{super} inserted in the case
+  with the values of \code{.that} and \code{.super} inserted in the case
   of an environment or refreshed in the case of a proto object.
   If \code{x} is a list then additional arguments are available:
   \code{as.proto(x, envir, parent, FUN, all.names, ...)}.  
@@ -36,7 +36,7 @@
   \code{x}.  If the name \code{x} does not begin with two dots then
   ancestors are searched if the name is not found in \code{obj}.
   If \code{x} is a variable
-  or if \code{obj} is \code{super} or \code{that} then \code{x} is returned.
+  or if \code{obj} is \code{.super} or \code{.that} then \code{x} is returned.
   Otherwise, the call \code{obj\$x(...)} is
   equivalent to the call \code{get("x", obj)(obj, ...)}. If it is desired
   to return a method as a value  rather than in 
@@ -45,7 +45,7 @@
   rather than \code{\$} syntax.\\
 \code{\$<-} & \code{obj\$x <- value} sets \code{x} in \code{proto} object
   \code{obj} to \code{value} creating \code{x} if not present.  If 
-  \code{obj} is \code{super} then a side effect is to set the parent
+  \code{obj} is \code{.super} then a side effect is to set the parent
   of \code{obj} to \code{value}.\\
 \code{is.proto(x)} & returns \code{TRUE} if \code{x} is a \code{proto}
   object and othewise returns \code{FALSE}.\\[0.5cm]

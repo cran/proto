@@ -3,7 +3,7 @@ name.proto <- function(., envir = parent.frame()) {
    stopifnot(is.environment(.) || 
       (is.character(.) && is.environment(get(., envir))))
    if (is.environment(.)) {
-      if (exists(".Name", ., inherits = FALSE)) .$.Name
+      if (exists("..Name", ., inherits = FALSE)) .$..Name
       else {
          L <- unlist(eapply(envir, identical, .))
          if (any(L)) names(L[L])[1]
@@ -11,12 +11,12 @@ name.proto <- function(., envir = parent.frame()) {
       }
    } else {
       e <- get(., envir)
-      if (exists(".Name", e, inherits = FALSE)) e$.Name
+      if (exists("..Name", e, inherits = FALSE)) e$..Name
       else .
    }
 }
       
-dot.proto <- function(e = if (exists("that")) that else parent.frame(), 
+dot.proto <- function(e = if (exists(".that")) .that else parent.frame(), 
      file = "", control) {
    control.default <- list(include = "graph [rankdir=BT];", 
 	arrow.from.child = TRUE)
@@ -35,7 +35,7 @@ dot.proto <- function(e = if (exists("that")) that else parent.frame(),
    }
 
 # test
-# a <- proto( { .Name = "a" } )
-# b <- proto( { .Name = "b" }, parent = a)
+# a <- proto( { ..Name = "a" } )
+# b <- proto( { ..Name = "b" }, parent = a)
 # dot.proto()
 

@@ -1,3 +1,11 @@
+VERSION 0.3-0
+
+o that/super changed to .that/.super.
+
+o .Name changed to ..Name in dot.proto
+
+o improvements to .Rd files and vignette
+
 VERSION 0.2-6
 
 o demo index file fixed and demo renamed and enhanced

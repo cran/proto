@@ -32,13 +32,18 @@
   and other applications
   without the necessity of defining classes while still providing convenient
   access to an object oriented style of programming.  Furthermore, it
-  can be used in a class-based style as well.
+  can be used in a class-based style as well so that incremental design can 
+  begin with defining the concrete objects and later transition to abstract
+  classes, once the general case is understood, without having to change to
+  object-oriented frameworks.
   The key design goals of the package are to integrate into \proglang{R}
   while providing nothing more than a thin layer on top of it.
   This paper describes how these goals are achieved
   within \pkg{proto} and provides examples
   of the use of the \code{"proto"} package.
 }
+
+\hyphenation{ma-ni-pu-lating}
 
 \begin{document}
 
@@ -47,7 +52,7 @@
 
 \section{Introduction} \label{sec:intro}
 
-\subsection{Object Oriented Programming in R}
+\subsection[Object Oriented Programming in R]{Object Oriented Programming in \proglang{R}}
 
 The \proglang{R} system for statistical computing
 \citep[\url{http://www.R-project.org/}]{Rcore2005} ships with two
@@ -58,7 +63,7 @@ oriented programming packages emerged.  These include the \pkg{R.oo}
 package \citep{Bengtsson2003} and the \pkg{OOP} package
 \citep[\url{http://www.omegahat.org/OOP/}]{Rnews:Chambers+Lang:2001a}.
 All these packages have the common thread that they use
-classes as the basis of inheritance.  When a method is sent to an
+classes as the basis of inheritance.  When a message is sent to an
 object the class of the object is examined and that class determines the
 specific function that is executed. In prototype programming there
 are no classes making it simple yet it retains much of the power of
@@ -79,29 +84,30 @@ prototype programming
 has developed over a number of years with the \proglang{Self}
 language \citep{Agesen1992}
 being the key evolved programming language to demonstrate
-the concept.  In statistics, the Lisp-based
-LispStat programming language \citep{Tierney1990} was
+the concept.  In statistics, the \proglang{Lisp}-based
+\proglang{LispStat} programming language \citep{Tierney1990} was
 the first and possibly only statistical system to feature prototype 
 programming.
 
 Despite having been developed over 20 years ago, and some attempts to
-enter the mainstream (e.g.  Newtonscript on the Newton computer, which
-is no longer available, and Javascript where it is available but whose
+enter the mainstream (e.g.  \proglang{Newtonscript} 
+on the Newton computer, which
+is no longer available, and \proglang{Javascript} where 
+it is available but whose
 domain of application largely precluses use of prototype programming)
 prototype programming is not well known due to lack of language
-support in popular programming languages such as C and Java.  It tends
-to be the domain of research languages or Lisp.
+support in popular programming languages such as \proglang{C} and 
+\proglang{Java}.  It tends
+to be the domain of research languages or \proglang{Lisp}.
 
 Thus the
 the availability of a popular language,
 \proglang{R} \footnote{Some indications of the popularity of R are
 the high volume mailing lists, international development team, the
-existence of over 400 addon packages, conferences and numerous books 
+existence of over 500 addon packages, conferences and numerous books 
 and papers devoted to R.},
 that finally does provide the key infrastructure 
 is an important development.
-
-
 
 This work grew out of the need to organize multiple scenarios of model
 simulations in ecological modelling \citep{Rnews:Petzoldt:2003} and
@@ -114,7 +120,7 @@ package.  Subsequently the package was changed to use \proglang{R}
 environments.  The first version to use environments stored the
 receiver object variable in a proxy parent environment which was
 created on-the-fly at each method call.  The present version of
-\code{proto} passes the receiver object through the argument list,
+the \pkg{proto} package passes the receiver object through the argument list,
 while hiding this from the caller.  It defines the \code{proto} class
 as a subclass of the \proglang{S3} \code{environment} class so that
 functionality built into \proglang{R} for the environment class is
@@ -122,25 +128,42 @@ automatically inherited by the \code{proto} class.
 
 \subsection{Benefits}
 
+
 The key benefit of the \pkg{proto} package is to provide 
 access to a style of programming that has not been conveniently
 accessible within \proglang{R} or any other mainstream language today.
 
-One particularly important use of the \pkg{proto} package
-in statistical applications is
-to wrap the code and data for each run of a particular
-study into an object. This provides
-a desirable level of organization yet gives the benefits of
-inheritance and object oriented dispatch without the overhead
-of having to create classes.  Such concrete applications are the
-key domain of prototype programming. In contrast abstractions,
-such as a time series class, a matrix class, etc.
-are well suited to 
-class-based programming although \code{proto}
-can be used in such applications as well since, as shown later,
-it is powerful
-enough to encompass class-based object-oriented programming
-even though classes are not a primitive notion in \code{proto}.
+\pkg{proto} can be used in two key ways: class-free object oriented programming
+and class-based object oriented programming.  
+
+A key application for \pkg{proto} in class-free programming is to wrap the code
+and data for each run of a particular statistical study into an object for
+purposes of organization and reproducibility.  It provides such organization
+directly and without the need and overhead of class definitions
+yet still provides the
+inheritance and dispatch advantages of object oriented programming.  
+We provide examples of this style of programming in 
+Section~\ref{sec:smooth}
+and
+Section~\ref{sec:corr}.
+A third example in 
+Section~\ref{sec:tree} illustrates a beneficial use of \pkg{proto} with 
+recursive data structures.  
+
+Another situation where prototype programming is of interest is in the initial
+development stages of a program.  In this case, the design may not be fully
+clear so it is more convenient to create concrete objects individually rather
+than premature abstractions through classes.  The \code{dot.proto}
+function can be used to generate visual representations of the object
+tree suggesting classifications of objects so that 
+as the program evolves the general case becomes clearer and
+in a bottom up fashion the objects are incrementally abstracted into 
+classes.  In this case,
+\pkg{proto} provides a smooth transition path since it not only supports
+class-free programming but, as explained in the Section~\ref{sec:traits}, is
+sufficiently powerful to support class-based programming, as well.   
+This process is illustrated in 
+Section~\ref{sec:increment}.
 
 \subsection{Overview}
 
@@ -158,19 +181,22 @@ analogue of inheritance) is handled and finally discusses the
 internals of the package.  This section uses small examples chosen for
 their simplicity in illustrating the concepts.  In
 Section~\ref{sec:examples} we provide additional examples of prototype
-programming in action.  Three examples are shown.  The first involves
+programming in action.  Four examples are shown.  The first involves
 smoothing of data.  Secondly we demonstrate the calculation of
 correlation confidence intervals using classical (Fisher Transform)
-and modern (bootstrapping) methods.  Lastly we demonstrate the
+and modern (bootstrapping) methods.  Thirdly we demonstrate the
 development of a binary tree as would be required for a dendogram.
+Fourthly, we use the solution of linear equations to illustrate
+program evolution from object-based to class-based, all
+within the \pkg{proto} framework.
 Section~\ref{sec:summary} gives a few summarizing remarks.  Finally,
 an appendix provides a reference card that summarizes the
 functionality contained in \pkg{proto} in terms of its constituent
 commands.
 
-\pagebreak[4]
+%% \pagebreak[4]
 
-\section[The class ""proto" and its methods]{The class \code{"proto"} and its methods}
+\section[The class "proto" and its methods]{The class \code{"proto"} and its methods}
 \label{sec:proto-class}
 
 \subsection[Creation of "proto" objects]{Creation of \code{"proto"} objects}
@@ -183,7 +209,7 @@ and variables, which are tightly related in some way.
 
 A prototype object is created using the constructor function
 \code{proto} (see Appendix~\ref{sec:ref} at the end of this paper or
-\pkg{proto} package online help for complete syntax of commands):
+\pkg{proto} package help for complete syntax of commands):
 
 \begin{Scode}
 addProto <- proto( x = rnorm(5), add = function(.) sum(.$x) )
@@ -352,44 +378,45 @@ search up parent links if it cannot otherwise find the object (unlike
 environments).  When accessing a method, \code{\$} 
 automatically supplies the
 first argument to the method
-unless the object is \code{that} or \code{super}.  \code{that}
+unless the object is \code{.that} or \code{.super}.  \code{.that}
 is a special variable which \code{proto} adds to every \code{proto} object
-denoting the object itself.  \code{super} is also added to every
-proto object and is the parent of \code{that}.  \code{that}
-and \code{super} are normally used
+denoting the object itself.  \code{.super} is also added to every
+proto object and is the parent of \code{.that}.  \code{.that}
+and \code{.super} are normally used
 within methods of an object to refer to other components of the same
 or parent object, respectively,
 as opposed to the receiver (\code{.}).  For example,
 suppose we want \code{add} in \code{addProto2} to add the elements
 of \code{x} together and the elements of
-{y} together and then add these two sums.  We could redefine add like this:
+\code{y} together and then add these two sums.  We could redefine add like this:
 
 \begin{Schunk}
 \begin{Sinput}
-> addProto2$add <- function(.) super$add(.) + sum(.$y)
+> addProto2$add <- function(.) .super$add(.) + sum(.$y)
 \end{Sinput}
 \end{Schunk}
 
 making use of the \code{add} already defined in the parent.
-One exception should be noted here.  When one uses \code{super},
-as above, or \code{that} to specify a method then the receiver
+One exception should be noted here.  When one uses \code{.super},
+as above, or \code{.that} to specify a method then the receiver
 object must be explicitly specified 
 in argument one (since in those cases the receiver
 is possibly different than
-\code{super} or \code{that} so the system cannot automatically supply it
+\code{.super} or \code{.that} so the system cannot automatically supply it
 to the call.)
 
 Setting a value is similar to the corresponding operation for
 environments except that any function, i.e method, which is
 inserted has its environment set to the environment of the object
 into which it is being inserted.  This is necessary so that such
-methods can reference \code{that} and \code{super} using
+methods can reference \code{.that} and \code{.super} using
 lexical scoping.  
 
 \subsection{Traits}
 \label{sec:traits}
 
 Let us look at the definition of a child object once again.
+In the code below,
 \code{addProto} is the previously defined parent object
 and the expression \code{addProto\$proto(x = 1:5)} defines
 a child object of \code{addProto} and assigns it to variable
@@ -414,25 +441,25 @@ as shown.
 
 For example, first let us create a class-like structure.  In the
 following \code{Add} is an object that behaves very much like a class
-with an \code{add} method and a method \code{init} which constructs
+with an \code{add} method and a method \code{new} which constructs
 new objects.  In the line creating object \code{add1} the expression
-\code{Add\$init(x = 1:5)} invokes the \code{init} constructor of the
-receiver object \code{Add}. The method \code{init} has an argument of
+\code{Add\$new(x = 1:5)} invokes the \code{new} constructor of the
+receiver object \code{Add}. The method \code{new} has an argument of
 \code{x = 1:5} which defines an \code{x} variable in the \code{add1}
 object being instantiated. We similarly create another object
 \code{add2}.
 
 \begin{Schunk}
 \begin{Sinput}
-> Add <- proto(add = function(.) sum(.$x), init = function(., x) .$proto(x = x))
-> add1 <- Add$init(x = 1:5)
+> Add <- proto(add = function(.) sum(.$x), new = function(., x) .$proto(x = x))
+> add1 <- Add$new(x = 1:5)
 > add1$add()
 \end{Sinput}
 \begin{Soutput}
 [1] 15
 \end{Soutput}
 \begin{Sinput}
-> add2 <- Add$init(x = 1:10)
+> add2 <- Add$new(x = 1:10)
 > add2$add()
 \end{Sinput}
 \begin{Soutput}
@@ -455,7 +482,7 @@ could define:
 \begin{Schunk}
 \begin{Sinput}
 > Logadd <- Add$proto(logadd = function(.) log(.$add()))
-> logadd1 <- Logadd$init(1:5)
+> logadd1 <- Logadd$new(1:5)
 > logadd1$logadd()
 \end{Sinput}
 \begin{Soutput}
@@ -474,7 +501,7 @@ object oriented programming.
 
 Note that the delegation of methods from
 one trait to another as in
-\code{init} which is inherited by \code{Logadd} from \code{Add}
+\code{new} which is inherited by \code{Logadd} from \code{Add}
 is nothing more than the same mechanism by which traits delegate
 methods to
 objects since, of course, traits are just objects no different
@@ -496,7 +523,7 @@ For example, \code{ls()} can be used to list the components of
 > addProto$ls()
 \end{Sinput}
 \begin{Soutput}
-[1] "add"   "super" "that"  "x"    
+[1] "add" "x"  
 \end{Soutput}
 \end{Schunk}
 
@@ -507,6 +534,7 @@ Functions like:
 > addProto$str()
 > addProto$print()
 > addProto$as.list()
+> addProto2a$parent.env()
 \end{Sinput}
 \end{Schunk}
 
@@ -558,7 +586,7 @@ additional arguments then they would be passed as shown in the
 \label{sec:plot}
 
 The \code{dot.proto} function can be used to create output that is
-readable by the GraphViz \code{dot} program \citep{Ganser+North:1999}
+readable by the \proglang{GraphViz} \code{dot} program \citep{Ganser+North:1999}
 to create visual representations of ancestor trees (figure
 \ref{fig:proto-dot}).  It takes two arguments, a \code{proto} object
 (or an environment) and a file name:
@@ -577,15 +605,17 @@ point from child to parent.}
 \end{center}
 \end{figure}
 
-\section{Examples} \label{sec:examples}
+\section{Examples} 
+\label{sec:examples}
 
 \subsection{Smoothing}
+\label{sec:smooth}
 
 In the following we create a \code{proto} object named \code{oo}
 containing a vector of data \code{x} (generated from a simulated
 autoregressive model) and time points
 \code{tt}, an intermediate result
-\code{x.smooth}, some plotting parameters code{xlab}, \code{ylab},
+\code{x.smooth}, some plotting parameters \code{xlab}, \code{ylab},
 \code{pch}, \code{col} and three methods \code{smooth}, \code{plot}
 and \code{residuals} which smooth the data, plot the data and
 calculate residuals, respectively.  We also define \code{..x.smooth}
@@ -643,7 +673,7 @@ at the contents of one component, \code{oo\$pch}.
 > oo
 \end{Sinput}
 \begin{Soutput}
-<environment: 016B806C>
+<environment: 01457E30>
 attr(,"class")
 [1] "proto"       "environment"
 \end{Soutput}
@@ -651,8 +681,8 @@ attr(,"class")
 > oo$ls(all.names = TRUE)
 \end{Sinput}
 \begin{Soutput}
- [1] "..x.smooth" "col"        "pch"        "plot"       "residuals" 
- [6] "smooth"     "super"      "that"       "tt"         "x"         
+ [1] "..x.smooth" ".super"     ".that"      "col"        "pch"       
+ [6] "plot"       "residuals"  "smooth"     "tt"         "x"         
 [11] "xlab"       "ylab"      
 \end{Soutput}
 \begin{Sinput}
@@ -800,23 +830,24 @@ directly create objects to organize our calculations while
 relying on delegation and dispatch to eliminate redundancy.
 
 \subsection{Correlation, Fisher's Transform and Bootstrapping}
+\label{sec:corr}
 
-The classical approach to 
+The common approach to 
 confidence intervals for the correlation coefficient is to
 assume normality of the underlying data and then use Fisher's transform
 to transform the correlation coefficient to an approximately normal
 random variable.
-Fisher showed that with the above assumption, transforming 
+Fisher showed that with the above normality assumption, transforming 
 the correlation coefficient using
-the hyperbolic arc tangent function approximately
+the hyperbolic arc tangent function
 yields a random variable
-distributed with an
+approximately distributed with an
 $\frac{N(p, 1)}{\sqrt(n-3)}$ distribution.  The transformed random
 variable can be used to create normal distribution confidence intervals
 and the procedure can be back transformed to get confidence intervals
 for the original correlation coefficient.
 
-The modern approach to confidence intervals for the correlation
+A more recent approach to confidence intervals for the correlation
 coefficient is to use bootstrapping.  This does not require the
 assumption of normality of the underlying distribution and requires
 no special purpose theory devoted solely to the correlation coefficient,
@@ -870,10 +901,7 @@ procedure and the second runs the bootstrap procedure.  Just to check
 that we have performed sufficient bootstrap iterations we rerun it in
 the third line, creating a delegated object on-the-fly running its
 \code{ci} method and then immediately throwing the object away.
-
-From the three runs we see that the bootstrap confidence intervals are
-narrower than the Fisher Transform intervals despite the reduced
-assumptions and no special purpose theory.  The fact that 8,000
+The fact that 8,000
 replications give roughly the same result as 2,000 replications
 satisfies us that we have used a sufficient number of replications.
 
@@ -907,37 +935,37 @@ data and methods that go together, while relying on delegation and
 dispatch to avoid duplication.
 
 \subsection{Dendograms}
+\label{sec:tree}
 
-In \cite{Gentleman2002} there is an example of creating a binary tree
+In \cite{Gentleman2002} there is an \proglang{S4}
+example of creating a binary tree
 for use as a dendogram.  Here we directly define a binary tree with no
 setup at all.  To keep it short we will create a binary tree of only
 two nodes having a root whose left branch points to a leaf.  The leaf
 inherits the \code{value} and \code{incr} components from the root.
 The attractive feature is that the leaf be defined as a child of the
-parent using \code{that\$proto} before the parent is even finished
-being defined.  Compared to the cited \proglang{S4} example there is
-no need to create an extra class to introduce the required level of
-indirection.
+parent using \code{proto} before the parent is even finished
+being defined.  Compared to the cited \proglang{S4} example where it
+was necessary to create an extra class to introduce the required level of
+indirection there is no need to take any similar action.
 
 \code{tree} is the root node of the tree.  It has four components.  A
 method \code{incr} which increments the \code{value} component, a
-\code{.Name}, the \code{value} component itself and the left branch
+\code{..Name}, the \code{value} component itself and the left branch
 \code{..left}.  \code{..left} is itself a proto object which is a
 child of \code{tree}.  The leaf inherits the \code{value} component
 from its parent, the root.  As mentioned, at the time we define
 \code{..left} we have not even finished defining \code{tree} yet we
-are able to reference the yet to be defined parent via \code{that} as
-\code{proto} makes \code{that} available to inserted components as
-they are inserted.
+are able to implicitly reference the yet to be defined parent.
 
 \begin{Schunk}
 \begin{Sinput}
 > tree <- proto(expr = {
 +     incr <- function(., val) .$value <- .$value + val
-+     .Name <- "root"
++     ..Name <- "root"
 +     value <- 3
-+     ..left <- that$proto(expr = {
-+         .Name = "leaf"
++     ..left <- proto(expr = {
++         ..Name = "leaf"
 +     })
 + })
 \end{Sinput}
@@ -949,7 +977,7 @@ the tree or dendogram arbitrarily complex.
 
 Let us do some computation with this structure.  We display the
 \code{value} fields in the two nodes, increment the value field in the
-root and then display the two nodes again to show that the leaf
+root and then display the two nodes again to show .that the leaf
 changed too.
 
 \begin{Schunk}
@@ -991,6 +1019,78 @@ root: 9 leaf: 14
 \end{Soutput}
 \end{Schunk}
 
+\subsection{From Prototypes to Classes}
+\label{sec:increment}
+
+In many cases we will use \pkg{proto} for a design that is prototype
+during the full development cycle.  In other cases we may use it in an
+incremental way starting with prototypes but ultimately transitioning
+to classes.
+As shown in Section~\ref{sec:traits} the \pkg{proto} package is
+powerful enough to handle class-based as well as class-free programming.
+Here we illustrate this process of incremental design 
+starting with
+concrete objects and then over time classifing them into classes,
+evolving a class-based program.  \pkg{proto} provides a smooth
+transition path since it can handle both the class-free and the class-based
+phases -- there is no need to switch object systems part way through.
+In this example, we define an object which holds a linear equation, \code{eq},
+represented as a character string in terms of the unknown variable \code{x}
+and a \code{print} and a \code{solve} method.  We execute the 
+\code{print} method 
+to solve it.  We also create child object \code{lineq2}
+which overrides \code{eq} and execute its \code{print} method.
+
+\begin{Schunk}
+\begin{Sinput}
+> lineq <- proto(eq = "6*x + 12 - 10*x/4 = 2*x", solve = function(.) {
++     e <- eval(parse(text = paste(sub("=", "-(", .$eq), ")")), 
++         list(x = 0+1i))
++     -Re(e)/Im(e)
++ }, print = function(.) cat("Equation:", .$eq, "Solution:", .$solve(), 
++     "\n"))
+> lineq$print()
+\end{Sinput}
+\begin{Soutput}
+Equation: 6*x + 12 - 10*x/4 = 2*x Solution: -8 
+\end{Soutput}
+\begin{Sinput}
+> lineq2 <- lineq$proto(eq = "2*x = 7*x-12+x")
+> lineq2$print()
+\end{Sinput}
+\begin{Soutput}
+Equation: 2*x = 7*x-12+x Solution: 2 
+\end{Soutput}
+\end{Schunk}
+
+We could continue with enhancements but at this point we decide that we
+have a general case and so wish
+to abstract \code{lineq} into a class.  Thus we define a trait,
+\code{Lineq}, which is just \code{lineq} minus \code{eq} plus
+a constructor \code{new}.  The key difference between \code{new}
+and the usual \code{proto} function
+is that with \code{new} the initialization of \code{eq} is mandatory.
+Having completed this definition
+we instantiate an object of
+class/trait \code{Lineq} and execute it.
+
+\begin{Schunk}
+\begin{Sinput}
+> Lineq <- lineq
+> rm(eq, envir = Lineq)
+> Lineq$new <- function(., eq) proto(., eq = eq)
+> lineq3 <- Lineq$new("3*x=6")
+> lineq3$print()
+\end{Sinput}
+\begin{Soutput}
+Equation: 3*x=6 Solution: 2 
+\end{Soutput}
+\end{Schunk}
+
+Note how we have transitioned from a prototype style of programming
+to a class-based style of programming all the while staying within
+the \pkg{proto} framework.
+
 \section{Summary} \label{sec:summary}
 
 The package \pkg{proto} provides an \proglang{S3} subclass of the
@@ -1002,12 +1102,12 @@ while giving the user convenient access to this alternate object
 oriented paradigm.  This paper describes, by example, how prototype
 programming can be carried out in \proglang{R} using \pkg{proto} and
 illustrates such usage.  Delegation, cloning traits and general
-manipulation are all reviewed by example.
+manipulation and incremental development are all reviewed by example.
 
 \section*{Computational details}
 
 The results in this paper were obtained using \proglang{R} 2.1.0 with
-the package \pkg{proto} 0.2--3. \proglang{R} itself and the
+the package \pkg{proto} 0.3--0. \proglang{R} itself and the
 \pkg{proto} package are available from CRAN at
 \url{http://CRAN.R-project.org/}.  The GraphViz software is available
 from \url{http://www.graphviz.org}.

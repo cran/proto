@@ -10,7 +10,9 @@
 \alias{$<-.proto}
 \alias{.}
 \alias{this}
+\alias{.that}
 \alias{that}
+\alias{.super}
 \alias{super}
 \title{Prototype object-based programming}
 \description{
@@ -28,7 +30,7 @@ isnot.function(x)
 \arguments{
   \item{.}{the parent object of the new object.  May be a proto object
     or an environment.}
-  \item{expr}{a series of statements enclosed in braces that define
+  \item{expr}{a series of statements enclosed in braces .that define
     the variables and methods of the object.  Empty braces, the default,
     may be used
     if there are no variables or methods to add at this time.}
@@ -41,7 +43,7 @@ isnot.function(x)
     its parent is coerced to \code{parent}.}
   \item{\dots}{for \code{proto} these are components to be embedded in 
     the new object.  For \code{as.proto.list} these are arguments to
-    pass to \code{proto} in the case that a new object is created.}
+    pass to \code{proto} in the case .that a new object is created.}
   \item{FUN}{only components for which FUN(x) is TRUE are copied.}
   \item{all.names}{only names not starting with a dot are copied unless
     all.names is TRUE.}
@@ -53,11 +55,11 @@ is defined to be a subclass of the R \code{environment} class.
 \code{proto} creates or modifies objects of this class.  It inserts
 all variables and functions in \code{expr} and then in \code{\dots}
 into \code{envir} setting the parent to \code{.}.  The environment of
-all  functions inserted into the environment are set to that environment.
+all  functions inserted into the environment are set to .that environment.
 All such functions should 
 have the receiver object as their first argument.
 Conventionally this is \code{.} (i.e. a dot).  
-Also \code{that} and \code{super}
+Also \code{.that} and \code{.super}
 variables are added to the environment.  These 
 point to the object and its parent.
 Note that \code{proto} can be used as a method and overridden
@@ -97,19 +99,19 @@ context of a call to a method, e.g. \code{obj$meth(x,y)}.
 If it is desired to actually return the method as a value not
 in the context of a call then use the form 
 \code{obj$with(meth)} or \code{obj[[meth]]} 
-which are similar to \code{with(obj, meth)} except that 
+which are similar to \code{with(obj, meth)} except .that 
 the variation using \code{with} will search through ancestors while
 \code{[[} will not search through ancestors).
 The difference between \code{obj$meth} and \code{obj$with(meth)}
-is that in the first case
+is .that in the first case
 \code{obj} implicitly provides the first argument to the
-call so that \code{obj$meth(x,y)} and \code{obj$with(meth)(obj,x,y)}
+call so .that \code{obj$meth(x,y)} and \code{obj$with(meth)(obj,x,y)}
 are equivalent while in the case of \code{obj$with(meth)} the first
-argument is not automatically inserted.  The forms \code{that$meth} and 
-\code{super$meth}
-are special and should only be used within methods.  \code{that}
+argument is not automatically inserted.  The forms \code{.that$meth} and 
+\code{.super$meth}
+are special and should only be used within methods.  \code{.that}
 refers to the object in which the current method is located
-and \code{super} refers to the parent of \code{that}.  In both
+and \code{.super} refers to the parent of \code{.that}.  In both
 cases the receiver object must be 
 specified as the first argument --- the receiver
 is not automatically inserted
@@ -117,8 +119,8 @@ as with other usages of \code{$}.
 
 \code{$} can be used to set variables and methods in an object.
 No ancestors are searched for the set form of \code{$}.
-If the variable is the special variable \code{super} then not only
-is the variable set but the object's parent is set to \code{super}.
+If the variable is the special variable \code{.super} then not only
+is the variable set but the object's parent is set to \code{.super}.
 
 \code{is.proto(p)} returns TRUE if p is a prototype object.
 
@@ -140,7 +142,7 @@ search for \code{x} in \code{e} and no further whereas if \code{e}
 were a proto object its ancestors will be searched as well.
 For example,
 if the parent of a \code{proto} object is an \code{environment}
-but not itself a \code{proto} object then \code{super$x} references
+but not itself a \code{proto} object then \code{.super$x} references
 in the methods of that object will only look as far as the parent.
 
 Also note that the form \code{e$meth(...)} when used with an environment
@@ -153,14 +155,14 @@ To get precise equivalence write the even more verbose
 
 If the user has a proto object \code{obj}
 which is a child of the global environment and whose methods 
-use \code{super} then \code{super} will refer to an environment,
+use \code{.super} then \code{.super} will refer to an environment,
 not a proto object (unless the global environment is coerced to
 a proto object) and therefore be faced with the search situation
 discussed above.  One solution is to
 create an empty root object between the global environment
-and \code{obj} like this \code{Root <- obj$super <- proto(.GlobalEnv)}
+and \code{obj} like this \code{Root <- obj$.super <- proto(.GlobalEnv)}
 where \code{Root} is the root object.
-Now \code{super} references will reference \code{Root}, which is
+Now \code{.super} references will reference \code{Root}, which is
 a proto object so search will occur as expected.  \code{proto}
 does not provide such a root object automatically
 but the user can create one easily as shown, if desired.
@@ -170,7 +172,7 @@ to a proto object by issuing the command
 \code{as.proto(.GlobalEnv)}.  This will effectively make the global
 environment a proto root object
 but has the potential to break other software, although the 
-authors have not actually found any software that it breaks.
+authors have not actually found any software .that it breaks.
 }
 
 \seealso{\code{\link{as.list}}, \code{\link{names}}, \code{\link{environment}}}
@@ -187,14 +189,12 @@ debug(oo$with(rms)) # cannot use oo$rms to pass method as a value
 undebug(oo$with(rms)) # cannot use oo$rms to pass method as a value
 
 oo2 <- oo$proto( location = function(.) median(.$x) )
-oo2$rms()      # note that first argument is omitted.
+oo2$rms()      # note .that first argument is omitted.
 oo2$ls()       # list components of oo2
 oo2$as.list()  # contents of oo2 as a list
 oo2            # oo2 itself
-oo2$that       # same
-oo2$super      # parent of oo2
 oo2$parent.env() # same
-oo2$super$as.list() # contents of parent of oo2
+oo2$parent.env()$as.list() # contents of parent of oo2
 oo2$print()
 oo2$ls()
 oo2$str()
@@ -210,7 +210,7 @@ ooc$incr()
 ooc$a      # 4
 
 # same but proto overridden to force a to be specified
-oop$proto <- function(., a) { super$proto(., a=a) }
+oop$proto <- function(., a) { .super$proto(., a=a) }
 \dontrun{
 ooc2 <- oop$proto() # Error. Argument "a" is missing, with no default.
 }

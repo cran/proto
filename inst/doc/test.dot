@@ -1,5 +1,6 @@
 digraph G {
- graph [rankdir=BT];"logadd1" -> "Logadd" ;
+ graph [rankdir=BT]; 
+"logadd1" -> "Logadd" ;
 "Logadd" -> "Add" ;
 "add2" -> "Add" ;
 "add1" -> "Add" ;
