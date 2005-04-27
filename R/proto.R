@@ -5,7 +5,7 @@ proto <- function (. = parent.env(envir), expr = {}, envir =
     eval(substitute(eval(quote({ expr }))), envir)
     dots <- list(...); names <- names(dots)
     for (i in seq(length = length(dots))) { 
-        assign(names[i], dots[[i]], envir)
+        assign(names[i], dots[[i]], env = envir)
         if (is.function(dots[[i]])) environment(envir[[names[i]]]) <- envir
     }
     if (length(dots)) as.proto.environment(envir) else envir
@@ -13,8 +13,8 @@ proto <- function (. = parent.env(envir), expr = {}, envir =
 
 as.proto <- function(x, ...) UseMethod("as.proto")
 as.proto.environment <- function(x, ...) {
-	assign(".that", x, x)
-	assign(".super", parent.env(x), x)
+	assign(".that", x, env = x)
+	assign(".super", parent.env(x), env = x)
 	structure(x, class = c("proto", "environment"))
 }
 as.proto.proto <- function(x, ...) x
@@ -29,7 +29,7 @@ as.proto.list <- function(x, envir, parent, FUN = function(x) TRUE,
        }
        for(s in names(x))
           if (FUN(x[[s]])) {
-             assign(s, x[[s]], envir)
+             assign(s, x[[s]], env = envir)
              if (is.function(x[[s]])) environment(envir[[s]]) <- envir
           }
        if (!missing(parent)) parent.env(envir) <- parent
@@ -39,14 +39,14 @@ as.proto.list <- function(x, envir, parent, FUN = function(x) TRUE,
 "$.proto" <- function(this, x) {
    inh <- substr(x,1,2) != ".."
    p <- parent.frame()
-   is.function <- is.function(get(x, this, inherits = inh))
+   is.function <- is.function(get(x, env = this, inherits = inh))
    is.that <- match(deparse(substitute(this)), c(".that",".super"), nomatch=0)
    s <- if (is.function && !is.that)
-         substitute(function(...) get(x, this, inherits = inh)(this, ...))
+         substitute(function(...) get(x, env = this, inherits = inh)(this, ...))
    else
-         substitute(get(x, this, inherits = inh))
+         substitute(get(x, env = this, inherits = inh))
    res <- eval(s, list(inh = inh), p)
-   if (is.function) environment(res) <- p
+   if (is.function && !is.that) environment(res) <- p
    res
 }
 

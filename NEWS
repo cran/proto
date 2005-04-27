@@ -1,6 +1,12 @@
+VERSION 0.3-2
+
+o bug fix (recursion bug)
+
+o documentation improvements (vignette, .Rd files, README)
+
 VERSION 0.3-1
 
-o improvements to .Rd files
+o .Rd file improvements
 
 VERSION 0.3-0
 

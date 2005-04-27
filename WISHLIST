@@ -1,18 +1,3 @@
 
 WISHLIST
 
-o enhance hash value output in print, str with something more 
-  meaningful as was done with dot.proto.  
-
-o some way to display contents of proto similar to as.list but
-  displaying more meaningful names as per last point.
-
-o some way to display all objects in a proto including all
-  inherited objects
-
-o expand dot.proto into UML or UML-like diagrams
-
-o reference card
-
-o S4 vs. proto lexicon
-

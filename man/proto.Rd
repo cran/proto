@@ -22,7 +22,7 @@ oriented system.
 \usage{
 proto(. = parent.env(envir), expr = {}, envir = 
 		new.env(parent = parent.frame()), ... )
-method{as.proto}{list}(x, envir, parent, FUN = function(x) TRUE, 
+\method{as.proto}{list}(x, envir, parent, FUN = function(x) TRUE, 
     all.names = FALSE, ...)
 isnot.function(x)
 }
@@ -30,7 +30,7 @@ isnot.function(x)
 \arguments{
   \item{.}{the parent object of the new object.  May be a proto object
     or an environment.}
-  \item{expr}{a series of statements enclosed in braces .that define
+  \item{expr}{a series of statements enclosed in braces that define
     the variables and methods of the object.  Empty braces, the default,
     may be used
     if there are no variables or methods to add at this time.}
@@ -43,7 +43,7 @@ isnot.function(x)
     its parent is coerced to \code{parent}.}
   \item{\dots}{for \code{proto} these are components to be embedded in 
     the new object.  For \code{as.proto.list} these are arguments to
-    pass to \code{proto} in the case .that a new object is created.}
+    pass to \code{proto} in the case that a new object is created.}
   \item{FUN}{only components for which FUN(x) is TRUE are copied.}
   \item{all.names}{only names not starting with a dot are copied unless
     all.names is TRUE.}
@@ -52,16 +52,18 @@ isnot.function(x)
 \details{
 The \code{proto} class
 is defined to be a subclass of the R \code{environment} class.
+In particular this implies that \code{proto} objects have
+single inheritance and mutable state as all environments do.
 \code{proto} creates or modifies objects of this class.  It inserts
 all variables and functions in \code{expr} and then in \code{\dots}
 into \code{envir} setting the parent to \code{.}.  The environment of
-all  functions inserted into the environment are set to .that environment.
+all  functions inserted into the environment are set to that environment.
 All such functions should 
 have the receiver object as their first argument.
 Conventionally this is \code{.} (i.e. a dot).  
 Also \code{.that} and \code{.super}
 variables are added to the environment.  These 
-point to the object and its parent.
+point to the object itself and its parent.
 Note that \code{proto} can be used as a method and overridden
 like any other method.  This allows objects to have object-specific
 versions of \code{proto}.
@@ -99,13 +101,13 @@ context of a call to a method, e.g. \code{obj$meth(x,y)}.
 If it is desired to actually return the method as a value not
 in the context of a call then use the form 
 \code{obj$with(meth)} or \code{obj[[meth]]} 
-which are similar to \code{with(obj, meth)} except .that 
+which are similar to \code{with(obj, meth)} except that 
 the variation using \code{with} will search through ancestors while
 \code{[[} will not search through ancestors).
 The difference between \code{obj$meth} and \code{obj$with(meth)}
-is .that in the first case
+is that in the first case
 \code{obj} implicitly provides the first argument to the
-call so .that \code{obj$meth(x,y)} and \code{obj$with(meth)(obj,x,y)}
+call so that \code{obj$meth(x,y)} and \code{obj$with(meth)(obj,x,y)}
 are equivalent while in the case of \code{obj$with(meth)} the first
 argument is not automatically inserted.  The forms \code{.that$meth} and 
 \code{.super$meth}
@@ -172,7 +174,7 @@ to a proto object by issuing the command
 \code{as.proto(.GlobalEnv)}.  This will effectively make the global
 environment a proto root object
 but has the potential to break other software, although the 
-authors have not actually found any software .that it breaks.
+authors have not actually found any software that it breaks.
 }
 
 \seealso{\code{\link{as.list}}, \code{\link{names}}, \code{\link{environment}}}
@@ -189,7 +191,7 @@ debug(oo$with(rms)) # cannot use oo$rms to pass method as a value
 undebug(oo$with(rms)) # cannot use oo$rms to pass method as a value
 
 oo2 <- oo$proto( location = function(.) median(.$x) )
-oo2$rms()      # note .that first argument is omitted.
+oo2$rms()      # note that first argument is omitted.
 oo2$ls()       # list components of oo2
 oo2$as.list()  # contents of oo2 as a list
 oo2            # oo2 itself

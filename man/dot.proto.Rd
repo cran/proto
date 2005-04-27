@@ -16,19 +16,20 @@ dot.proto(e = if (exists(".that")) .that else parent.frame(),
     Defaults to current environment.}
   \item{file}{file where \code{dot} ouput is placed.  Defaults to standard 
     output.}
-  \item{control}{a list of parameters .that affect the grahical display.  
-    It may be omitted.  If specified, only specify those components for
-    which the default is not desired. The components are \code{include}
-    and \code{arrow.from.child}.  \code{include} is a string of
-    GraphViz dot commands .that are included in the output.
-    \code{arrow.from.child} causes arrows to point from children to 
-    parents if \code{TRUE} and otherwise from parents to children.}
+  \item{control}{a list of parameters that affects the grahical display.  
+    It may be omitted.  The \code{include} component
+    is a string of \code{dot} commands that are included prior to
+    the generated \code{dot} output.
+    The default value is  \code{"graph [rankdir=BT];"}.  The 
+    \code{arrow.from.child} component causes arrows to point from children to 
+    parents if \code{TRUE}, the default, and otherwise from parents to children.}
 }
 
 
 \details{
-\code{proto} creates a GraphViz \code{.dot} file which can be
+\code{proto} creates a \code{GraphViz} \code{.dot} file which can be
 transformed to postscript or other displayable graphics format
+outside of \code{R}
 using the \code{GraphViz} \code{dot} command to graphically
 display the relationship among proto objects.  Proto objects are
 identified by the contents of their \code{..Name} component, if any,
@@ -64,13 +65,27 @@ that package is ported to all common operating systems.
 \seealso{\code{\link{proto}}}
 
 \examples{
-a <- proto( ..Name = "a" )
-b <- a$proto( ..Name = "b" )
+
+oo <- proto(..Name = "root")
+oo2 <- oo$proto()
+oo3 <- oo$proto()
+oo4 <- oo$proto() 
 dot.proto()
-dot.proto(control = list(include = "") )  # different appearance
-# or 
+
+# different appearance
+dot.proto(control = list(include = "") )
+
+# just oo, oo2, oo3.  Display dot commands on console.
+dot.proto(proto(oo = oo, oo2 = oo2, oo3 = oo3))   
+
+# same since oo is parent of oo2 and oo3
+dot.proto(proto(oo2 = oo2, oo3 = oo3))   
+
+
+# In R, output dot commands to a file:
 #   dot.proto(file = "example.dot")
-# At the operating system command line:
+# Assuming GraphViz is installed, at
+# the operating system command line level:
 #   dot -Tps example.dot -o example.ps
 # or
 #   dot -Tjpg example.dot -o example.jpg
