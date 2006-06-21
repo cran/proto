@@ -1,11 +1,11 @@
 
 Proto is an R package that facilitates prototype
-programming, a type of object-oriented programming, that
+programming, a type of object-oriented programming that
 does not use classes as an atomic concept (but is powerful
 enough to encompass them).
 
-The package has been in development for over a year and this
-is its first public release.
+The package has been in development for over a year and on
+CRAN since the beginning of 2005.
 
 The package is lightweight providing a thin layer on top of
 R environments.  Unlike other packages which grow over time
@@ -19,17 +19,18 @@ EASE OF USE
 The proto package is easy to use because:
 
 1.  few names. There is only one new function name to learn
-among the core functions.  The 'proto' function constructs new
-proto objects.  All other core functions are just methods 
-for existing standard R generics (as.list, $, etc.)
+among the core functions.  The 'proto' function constructs
+new proto objects.  Remaining core functions include various
+as.proto methods, assignment and retrieval via $ and
+is.proto.
 
 2. documentation. A 15 page report, a reference card, a demo
 and help files are provided.
 
-3.  consistency.  Proto objects form an S3 subclass of the
-environment class and therefore work like environments.
-One can leverage everything one knows about environments to
-use proto too.  The package is highly consistent with R and
+3.  consistency.  Proto objects form an subclass of the
+environment class.  They are and work like environments.  
+One can leverage everything one knows about environments 
+to use proto.  The package is highly consistent with R and
 works the way R works.
 
 4. concise implementation.  The source code, excluding
@@ -40,11 +41,12 @@ not be necessary but its there for those who wish.)
 
 5. tested.  The package has been independently tested by
 multiple people and has no known bugs.  (If you find any
-please let us know!)
+please let the developers know!)
 
 6. visualization.  It includes a graphical support function,
-dot.proto, which produces graphical inheritance diagrams of
-projects allowing one to visualize larger projects.
+graph.proto, which produces inheritance graphs of projects 
+that can be rendered using the Rgraphviz plot function, 
+allowing one to visualize projects.
 
 EXAMPLE
 
@@ -55,16 +57,16 @@ The proto package is used like this:
 	# new object with variable a and method addtwice
 	oo <- proto(a = 1, addtwice = function(., x) .$a <- .$a + 2*x)
 
-	oo$addtwice(3)  
+	oo$addtwice(3)  # add twice 3 to 1
 	oo$ls()         # "a" "addtwice"
 	oo$a            # 7
 
 	# create child object overriding a
 	ooc <- oo$proto(a = 10)
 
-	ooc$addtwice(1)  
+	ooc$addtwice(1) # inherit addtwice from parent oo
 	ooc$ls()        # "a"
-	ooc$a           # 12
+	ooc$a           # 12 - addtwice from oo used "a" in ooc!
 
 DOCUMENTATION
 
@@ -81,6 +83,11 @@ More information is available via:
 	?proto                # constructs proto objects
 	?dot.proto            # visualize a proto project
 
+	# other information
+	file.show(system.file("NEWS", package = "proto"))
+	file.show(system.file("README", package = "proto")) # this file
+	file.show(system.file("WISHLIST", package = "proto"))
+
 proto is available on CRAN now for R 2.1.0 and later.
 
 Comments are welcome.
@@ -88,5 +95,6 @@ Comments are welcome.
 Louis Kates <lkates@alumni.princeton.edu>
 Thomas Petzoldt <petzoldt@rcs.urz.tu-dresden.de>
 
-May 1, 2005
+September 9, 2005 (updated)
+May 12, 2005
 

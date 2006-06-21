@@ -69,7 +69,7 @@ there is only one significant new routine name, \code{proto}.  The
 other routines are just the expected support routines such as
 \code{as.proto} to coerce objects to proto objects, \code{\$} to
 access and set proto object components and \code{is.proto} to check
-whether an object is a proto object.  In addition, \code{dot.proto}
+whether an object is a proto object.  In addition, \code{graph.proto}
 will generate a graphical ancestor tree showing the parent-child
 relationships among generated \code{proto} objects.
 
@@ -602,20 +602,23 @@ additional arguments then they would be passed as shown in the
 \subsection{Plotting}
 \label{sec:plot}
 
-The \code{dot.proto} function can be used to create output that is
-readable by the \proglang{GraphViz} \code{dot} program \citep{Ganser+North:1999}
-to create visual representations of ancestor trees (figure
-\ref{fig:proto-dot}).  It takes three arguments, a \code{proto} object
+The \code{graph.proto} function can be used to create 
+graphs that can be rendered by the \code{Rgraphviz} package
+creating visual representations of ancestor trees (figure
+\ref{fig:proto-dot}).  
+That package provides an interface to the 
+\proglang{GraphViz} \code{dot} program \citep{Ganser+North:1999}.
+
+\code{graph.proto} takes three arguments, all of which are
+usually omitted.  The first argument is a \code{proto} object
 (or an environment) out of which all contained \code{proto} objects
-and their parents (but not higher order ancestors) are graphed.  This
-argument is usually omitted.  The  
-\code{file} argument denotes the name of the output file to hold
-the generated \code{dot} code.  It defaults to output to the console
-if it is omitted.  A third argument, \code{control}, 
-also usually omitted, provides additional control over the output.  
-In the following example we graph all \code{proto} objects in the
-current environment placing the resulting \code{dot} code in
-\code{test.dot}.
+and their parents (but not higher order ancestors) are graphed.  
+If it is omitted, the current environment is assumed.
+The second argument is a graph (in the sense of the \code{graph}
+package) to which the nodes and edges are added.  If it is omitted
+an empty graph is assumed.  The last argument is a logical variable
+that specifies the orientation of arrows.  If omitted arrows are
+drawn from children to their parents.
 
 
 \input{proto-dot}
@@ -623,7 +626,7 @@ current environment placing the resulting \code{dot} code in
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics{test.pdf}
-\caption{\label{fig:proto-dot} Ancestor tree generated using dot.proto. Edges
+\caption{\label{fig:proto-dot} Ancestor tree generated using graph.proto. Edges
 point from child to parent.}
 \end{center}
 \end{figure}
@@ -698,7 +701,7 @@ at the contents of one component, \code{oo\$pch}.
 > oo
 \end{Sinput}
 \begin{Soutput}
-<environment: 01480EC0>
+<environment: 0162C354>
 attr(,"class")
 [1] "proto"       "environment"
 \end{Soutput}
@@ -1144,7 +1147,7 @@ recursive data structures.
 Another situation where prototype programming is of interest is in the initial
 development stages of a program.  In this case, the design may not be fully
 clear so it is more convenient to create concrete objects individually rather
-than premature abstractions through classes.  The \code{dot.proto}
+than premature abstractions through classes.  The \code{graph.proto}
 function can be used to generate visual representations of the object
 tree suggesting classifications of objects so that 
 as the program evolves the general case becomes clearer and

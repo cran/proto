@@ -51,18 +51,13 @@
   object and othewise returns \code{FALSE}.\\[0.5cm]
 
 \multicolumn{2}{l}{\textbf{Utilities}} \\
-\code{dot.proto} & \code{dot.proto(e, file, control)} creates a 
-  input file which for the \code{GraphViz} \code{dot}
-  program which generates an ancestor tree
+\code{graph.proto} & \code{graph.proto(e, g, child.to.parent)} adds a
+  graph in the sense of the \code{graph} package representing an ancestor tree
   among all \code{proto} objects in \code{environment} or \code{proto} 
-  object \code{e}.
-  \code{e} defaults to the current environment and \code{file} 
-  defaults to the standard output.
-  \code{control} is an optional list of display parameters.
-    The components are \code{include}
-    and \code{arrow.from.child}.  \code{include} is a string of
-    GraphViz dot commands to be included in the output.
-    \code{arrow.from.child} causes arrows to point from children to 
-    parents if \code{TRUE} (default) and otherwise from parents to children.
+  object \code{e} to graph \code{g}.
+  \code{e} defaults to the current environment and \code{g}
+  defaults to an empty graph.
+  \code{child.to.parent} is a logical variable specifying the direction
+   of arrows.  By default they are displayed from children to parents.
   \\[0.5cm]
 \end{tabular}

@@ -1,13 +1,16 @@
 proto <- function (. = parent.env(envir), expr = {}, envir = 
-		new.env(parent = parent.frame()), ... ) {
+		new.env(parent = parent.frame()), ..., funEnvir = envir) {
     parent.env(envir) <- .
     as.proto.environment(envir)  # must do this before eval(...)
-    eval(substitute(eval(quote({ expr }))), envir)
+    # moved eval after for so that ... always done first
+    # eval(substitute(eval(quote({ expr }))), envir)
     dots <- list(...); names <- names(dots)
     for (i in seq(length = length(dots))) { 
-        assign(names[i], dots[[i]], env = envir)
-        if (is.function(dots[[i]])) environment(envir[[names[i]]]) <- envir
+      assign(names[i], dots[[i]], env = envir)
+      if (!identical(funEnvir, FALSE) && is.function(dots[[i]])) 
+        environment(envir[[names[i]]]) <- funEnvir
     }
+    eval(substitute(eval(quote({ expr }))), envir)
     if (length(dots)) as.proto.environment(envir) else envir
 }
 
@@ -18,8 +21,8 @@ as.proto.environment <- function(x, ...) {
 	structure(x, class = c("proto", "environment"))
 }
 as.proto.proto <- function(x, ...) x
-as.proto.list <- function(x, envir, parent, FUN = function(x) TRUE, 
-    all.names = FALSE, ...) {
+as.proto.list <- function(x, envir, parent, all.names = FALSE, ..., 
+	funEnvir = envir, SELECT = function(x) TRUE) {
        if (missing(envir)) {
 		if (missing(parent)) parent <- parent.frame()
 		envir <- if (is.proto(parent)) 
@@ -28,9 +31,10 @@ as.proto.list <- function(x, envir, parent, FUN = function(x) TRUE,
 			proto(parent, ...)
        }
        for(s in names(x))
-          if (FUN(x[[s]])) {
+          if (SELECT(x[[s]])) {
              assign(s, x[[s]], env = envir)
-             if (is.function(x[[s]])) environment(envir[[s]]) <- envir
+             if (is.function(x[[s]]) && !identical(funEnvir, FALSE)) 
+		environment(envir[[s]]) <- funEnvir
           }
        if (!missing(parent)) parent.env(envir) <- parent
        as.proto.environment(envir)  # force refresh of .that and .super
@@ -59,3 +63,9 @@ as.proto.list <- function(x, envir, parent, FUN = function(x) TRUE,
 
 is.proto <- function(x) inherits(x, "proto")
 isnot.function <- function(x) ! is.function(x)
+
+#with.default seems to work just as well
+#with.proto <- function(data, expr, ...)
+#   eval.parent(substitute(eval(substitute(expr), data)))
+
+

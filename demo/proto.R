@@ -105,7 +105,8 @@ if (require(odesolve)) {
 	lv$plot()
 
 	## show the object relationships
-	dot.proto()
+	g <- graph.proto()
+	plot(g)
 
 	## Conclusion:
 	##   - the responsibility is due to the user, but

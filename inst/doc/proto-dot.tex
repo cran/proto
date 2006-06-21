@@ -1,6 +1,7 @@
 \begin{Schunk}
 \begin{Sinput}
-> dot.proto(file = "test.dot")
-> system("dot -Tps test.dot -o test.ps")
+> library(Rgraphviz)
+> g <- graph.proto()
+> plot(g)
 \end{Sinput}
 \end{Schunk}

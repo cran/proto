@@ -8,6 +8,7 @@
 \alias{is.proto}
 \alias{$.proto}
 \alias{$<-.proto}
+\alias{with.proto}
 \alias{.}
 \alias{this}
 \alias{.that}
@@ -21,9 +22,9 @@ oriented system.
 }
 \usage{
 proto(. = parent.env(envir), expr = {}, envir = 
-		new.env(parent = parent.frame()), ... )
-\method{as.proto}{list}(x, envir, parent, FUN = function(x) TRUE, 
-    all.names = FALSE, ...)
+		new.env(parent = parent.frame()), ..., funEnvir )
+\method{as.proto}{list}(x, envir, parent, all.names = FALSE, ..., 
+	funEnvir = envir, SELECT = function(x) TRUE)
 isnot.function(x)
 }
 
@@ -37,6 +38,11 @@ isnot.function(x)
   \item{envir}{an existing prototype object or environment into which 
     the variables and methods defined in \code{expr} are placed.  
     If omitted a new object is created.}
+  \item{funEnvir}{the environment of methods passed via \dots are automatically
+    set to this environment.  Normally this argument is omitted, defaulting
+    to \code{envir}; however, one can specify \code{FALSE} 
+    to cause their environment to not be set or one can specify some 
+    other environment or proto object to which their environment is to be set.}
   \item{x}{a list.}
   \item{parent}{a prototype object or environment which is to be used
     as the parent of the object.  If \code{envir} is specified then
@@ -44,7 +50,9 @@ isnot.function(x)
   \item{\dots}{for \code{proto} these are components to be embedded in 
     the new object.  For \code{as.proto.list} these are arguments to
     pass to \code{proto} in the case that a new object is created.}
-  \item{FUN}{only components for which FUN(x) is TRUE are copied.}
+  \item{SELECT}{a function which given an object returns \code{TRUE} or
+    \code{FALSE} such that only those for which \code{SELECT} returns
+    \code{TRUE} are kept in the returned \code{proto} object.}
   \item{all.names}{only names not starting with a dot are copied unless
     all.names is TRUE.}
 }
@@ -123,6 +131,8 @@ as with other usages of \code{$}.
 No ancestors are searched for the set form of \code{$}.
 If the variable is the special variable \code{.super} then not only
 is the variable set but the object's parent is set to \code{.super}.
+
+A \code{with} method is available for \code{proto} objects.
 
 \code{is.proto(p)} returns TRUE if p is a prototype object.
 
@@ -220,9 +230,10 @@ ooc2 <- oop$proto(a = 10)
 ooc2$incr()
 ooc2$a # 11
 
-o2 <- proto(a = 1, incr = function(.) .$a <- .$a+1)
+# use of with to eliminate having to write .$a
+o2 <- proto(a = 1, incr = function(.) with(., a <- a+1))
 o2c <- as.proto(o2$as.list()) # o2c is a clone of o2
-o2d <- o2$proto()  # o2d is a delegate of o2
+o2d <- o2$proto()  # o2d is a child of o2
 o2$a <- 2
 o2c$a  # a not changed by assignment in line above
 o2d$a # a is changed since a not found in o2d so found in o2
