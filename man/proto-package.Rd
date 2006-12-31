@@ -25,6 +25,7 @@ Tutorial \tab vignette("proto")\cr
 Prototype OO concepts document\tab u <- "http://hhbio.wasser.tu-dresden.de/projects/proto/prototype\_approaches.pdf"; browseURL(u)\cr
 News\tab file.show(system.file("NEWS", package = "proto"))\cr
 Wish List\tab file.show(system.file("WISHLIST", package = "proto"))\cr
+Thanks\tab file.show(system.file("THANKS", package = "proto"))\cr
 This File\tab package?proto\cr
 Help file\tab ?proto\cr
 graph.proto Help File\tab ?graph.proto\cr

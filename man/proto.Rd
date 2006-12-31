@@ -9,12 +9,14 @@
 \alias{$.proto}
 \alias{$<-.proto}
 \alias{with.proto}
+\alias{str.proto}
 \alias{.}
 \alias{this}
 \alias{.that}
 \alias{that}
 \alias{.super}
 \alias{super}
+\alias{print.instantiatedProtoMethod}
 \title{Prototype object-based programming}
 \description{
 \code{proto} creates or modifies objects of the proto object
@@ -103,9 +105,16 @@ search upwards through the ancestors of \code{obj} until found
 unless the name \code{v} begins with two dots \code{..}.  In that case no
 upward search is done.
 
-If \code{meth} is a function then \code{obj$meth} should only be 
-used in the
+If \code{meth} is a function then \code{obj$meth} is an object
+of class \code{c("instantiatedProtoMethod", "function")} 
+which is a \code{proto}
+method with the first, i.e. proto slot, already filled in.
+It is normally used in the
 context of a call to a method, e.g. \code{obj$meth(x,y)}.
+There also exists \code{print.instantiatedProtoMethod} 
+for printing such objects.  Note that an instantiated proto method
+is not the same as a proto method.  The first has its first slot 
+filled in whereas the second does not.
 If it is desired to actually return the method as a value not
 in the context of a call then use the form 
 \code{obj$with(meth)} or \code{obj[[meth]]} 
@@ -117,7 +126,14 @@ is that in the first case
 \code{obj} implicitly provides the first argument to the
 call so that \code{obj$meth(x,y)} and \code{obj$with(meth)(obj,x,y)}
 are equivalent while in the case of \code{obj$with(meth)} the first
-argument is not automatically inserted.  The forms \code{.that$meth} and 
+argument is not automatically inserted.  
+\code{$.proto} also has a three argument form.  If the third argument
+is present then it should be a list specifying the arguments at which
+the instantiated method is to be evaluated.
+
+
+
+The forms \code{.that$meth} and 
 \code{.super$meth}
 are special and should only be used within methods.  \code{.that}
 refers to the object in which the current method is located
@@ -135,6 +151,8 @@ is the variable set but the object's parent is set to \code{.super}.
 A \code{with} method is available for \code{proto} objects.
 
 \code{is.proto(p)} returns TRUE if p is a prototype object.
+
+\code{str.proto} is provided for inspecting \code{proto} objects.
 
 }
 
@@ -237,6 +255,10 @@ o2d <- o2$proto()  # o2d is a child of o2
 o2$a <- 2
 o2c$a  # a not changed by assignment in line above
 o2d$a # a is changed since a not found in o2d so found in o2
+
+p <- proto(a = 0, incr = function(., x) .$a <- .$a + x)
+pc <- p$proto(a = 100)
+sapply(list(p, pc), "$.proto", "incr", list(x = 7))
 
 }
 \keyword{programming}

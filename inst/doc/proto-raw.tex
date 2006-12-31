@@ -50,6 +50,7 @@
 \section{Introduction} \label{sec:intro}
 
 \subsection[Object Oriented Programming in R]{Object Oriented Programming in \proglang{R}}
+\label{sec:oo}
 
 The \proglang{R} system for statistical computing
 \citep[\url{http://www.R-project.org/}]{Rcore2005} ships with two
@@ -78,6 +79,7 @@ programming in \proglang{R} written only in \proglang{R} leveraging the
 existing facilities of the language rather than adding its own.
 
 \subsection{History}
+\label{sec:history}
 
 The concept of 
 prototype programming
@@ -128,6 +130,7 @@ functionality built into \proglang{R} for the environment class is
 automatically inherited by the \code{proto} class.
 
 \subsection{Overview}
+\label{sec:overview}
 
 It is assumed that the reader has some general
 familiarity with object oriented programming concepts and with
@@ -409,9 +412,16 @@ search not only the object itself but also its ancestors.
 Similarly \code{addProto\$add()} can be used to call
 method \code{add} in \code{addProto} also searching through ancestors
 if not found in \code{addProto}.  Note that \code{addProto\$add}
-returns a function derived from \code{add} with the first argument,
+returns an object of class
+
+\code{c("instantiatedProtoMethod", "function")}
+which is derived from \code{add} such that the first argument,
 the \code{proto} object,
-already inserted.  Thus, if one wants exactly the original \code{add}
+is already inserted.  Note that there is a \code{print} method for
+class \code{"instantiatedProtoMethod"} so printing such objects will
+display the underlying function but returning such objects 
+is not the same as returning the function without slot one inserted.
+Thus, if one wants exactly the original \code{add}
 as a value one should use \code{with(addProto, add)} or 
 \code{addProto\$with(add)}.  
 
@@ -579,8 +589,10 @@ can be tested using the respective base function:
 \end{Soutput}
 \end{Schunk}
 
-It is important to notice here, that
-\code{proto} has no code that is specific to \code{ls}, \code{str} or
+\code{proto} does contain a special purpose \code{str.proto} function
+but in the main it 
+is important to notice here, that
+\code{proto} has no code that is specific to \code{ls} or
 any of the other ordinary \proglang{R}
 functions listed.  We are simply making use of the
 fact that \code{obj\$fun(...)} is transformed into \code{get("fun",
@@ -701,7 +713,7 @@ at the contents of one component, \code{oo\$pch}.
 > oo
 \end{Sinput}
 \begin{Soutput}
-<environment: 0162C354>
+<environment: 0x027f7f3c>
 attr(,"class")
 [1] "proto"       "environment"
 \end{Soutput}
@@ -1122,6 +1134,7 @@ the \pkg{proto} framework.
 \section{Summary} \label{sec:summary}
 
 \subsection{Benefits}
+\label{sec:benefits}
 
 The key benefit of the \pkg{proto} package is to provide 
 access to a style of programming that has not been conveniently
@@ -1159,6 +1172,7 @@ sufficiently powerful to support class-based programming, as well.
 
 
 \subsection{Conclusion}
+\label{sec:conclusion}
 
 The package \pkg{proto} provides an \proglang{S3} subclass of the
 \code{environment} class for constructing and manipulating object
@@ -1172,6 +1186,7 @@ illustrates such usage.  Delegation, cloning traits and general
 manipulation and incremental development are all reviewed by example.
 
 \section*{Computational details}
+\label{sec:compute}
 
 The results in this paper were obtained using \proglang{R} 2.1.0 with
 the package \pkg{proto} 0.3--2. \proglang{R} itself and the
@@ -1185,6 +1200,57 @@ from \url{http://www.graphviz.org}.
 
 \newpage\mbox{}
 \begin{appendix}
+\section{Frequently Asked Questions}
+\label{sec:faq}
+\begin{enumerate}
+\item{What scope do unqualified object references within methods use?
+
+A \pkg{proto} object is an environment and the defined methods in a 
+\pkg{proto} object have, by default,
+that environment as their parent.  Thus unqualified object references
+within a \pkg{proto} method look first in the method itself and secondly in the
+\pkg{proto} object in which they are defined.  This is referred to as object
+scope as opposed to lexical scope or dynamic scope.  It allows simple 
+situations where delegation is not used to use unqualified names.  Thus 
+simple situations remain simple.  Also read 
+\citep{Kates2004}
+which discusses the fragile base class problem which 
+relates to this question. Note that if a \pkg{proto} object is created
+via the \code{proto} function with an argument of \code{funEnvir = FALSE}
+then the environment of the function/method will not be reset and so the
+above does not apply.  This can be used for instances when the default
+processing is not desirable.}
+\item{Why does \code{obj\$meth} not return the method, \code{meth}?  
+
+\code{obj\$meth(x, y)} generates a call like \code{meth(obj, x, y)} so 
+\code{obj\$meth} needs to
+return \code{meth} with its first argument, \code{obj}, already inserted.  Since
+calling a method is the most common operation that operation was made
+the simplest. To get the method itself use \code{with(obj, meth)} or
+\code{obj\$with(meth)}.}
+\item{How does one debug a method?
+
+\pkg{proto} will not dynamically redefine methods.  This has the advantage
+that debug can be used.  Be sure you are referring to the method itself
+and not a call to the method:
+\begin{verbatim}
+   with(obj, debug(meth))
+\end{verbatim}
+
+and not 
+\begin{verbatim}
+   debug(obj$meth) # wrong!
+\end{verbatim}
+}
+\item{Is multiple inheritance supported?  
+
+No. proto is just a thin layer on top of \proglang{R} 
+environments and \proglang{R} environments
+provide single inheritance only.  Note that \citep{Kates2004}
+discusses some ways of handling situations which would otherwise require
+multiple inheritance.}
+\end{enumerate}
+\newpage{}
 \section{Reference Card}
 \label{sec:ref}
 \input{protoref-raw}

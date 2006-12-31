@@ -40,19 +40,19 @@ as.proto.list <- function(x, envir, parent, all.names = FALSE, ...,
        as.proto.environment(envir)  # force refresh of .that and .super
 }
 
-"$.proto" <- function(this, x) {
-   inh <- substr(x,1,2) != ".."
-   p <- parent.frame()
-   is.function <- is.function(get(x, env = this, inherits = inh))
-   is.that <- match(deparse(substitute(this)), c(".that",".super"), nomatch=0)
-   s <- if (is.function && !is.that)
-         substitute(function(...) get(x, env = this, inherits = inh)(this, ...))
-   else
-         substitute(get(x, env = this, inherits = inh))
-   res <- eval(s, list(inh = inh), p)
-   if (is.function && !is.that) environment(res) <- p
-   res
-}
+# "$.proto" <- function(this, x) {
+#    inh <- substr(x,1,2) != ".."
+#    p <- parent.frame()
+#    is.function <- is.function(get(x, env = this, inherits = inh))
+#    is.that <- match(deparse(substitute(this)), c(".that",".super"), nomatch=0)
+#    s <- if (is.function && !is.that)
+#          substitute(function(...) get(x, env = this, inherits = inh)(this, ...))
+#    else
+#          substitute(get(x, env = this, inherits = inh))
+#    res <- eval(s, list(inh = inh), p)
+#    if (is.function && !is.that) environment(res) <- p
+#    res
+# }
 
 "$<-.proto" <- function(this,s,value) { 
         if (s == ".super") parent.env(this) <- value
@@ -67,5 +67,45 @@ isnot.function <- function(x) ! is.function(x)
 #with.default seems to work just as well
 #with.proto <- function(data, expr, ...)
 #   eval.parent(substitute(eval(substitute(expr), data)))
+
+"$.proto" <- function (this, x, args) {
+    inh <- substr(x, 1, 2) != ".."
+    p <- parent.frame()
+    is.function <- is.function(get(x, env = this, inherits = inh))
+    is.that <- match(deparse(substitute(this)), c(".that", ".super"), 
+        nomatch = 0)
+    s <- if (is.function && !is.that) 
+        substitute(function(...) get(x, env = this, inherits = inh)(this, 
+            ...))
+    else substitute(get(x, env = this, inherits = inh))
+    res <- eval(s, list(this = this, x = x, inh = inh), p)
+    if (is.function && !is.that) {
+        environment(res) <- p
+        class(res) <- c("instantiatedProtoMethod", "function")
+	attr(res, "this") <- this
+	if (!missing(args)) res <- do.call(res, args, envir = p)
+    }
+    res
+}
+
+# modified from original by Tom Short
+print.instantiatedProtoMethod <- function(x, ...) {
+  # cat("proto method call: ")
+  # print(unclass(x))
+  cat("proto method (instantiated with ", name.proto(attr(x, "this")), 
+    "): ", sep = "")
+  print(eval(body(x)[[1]]))
+}
+
+# modified from original by Tom Short
+str.proto <- function(object, nest.lev = 0,
+    indent.str = paste(rep.int(" ", max(0, nest.lev + 1)), collapse = ".."),
+    ...) {
+  cat("proto", name.proto(object), "\n")
+  Lines <- capture.output(str(as.list(object), nest.lev = nest.lev, ...))[-1]
+  for(s in Lines) cat(s, "\n")
+  if (is.proto(parent.env(object))) cat(indent.str, "parent:", 
+    name.proto(parent.env(object)), "\n")
+}
 
 
