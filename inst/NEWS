@@ -1,3 +1,11 @@
+VERSION 0.3-9
+
+o minor changes to satisfy subtitute/eval changes in R 2.13.0 (thanks to
+  Luke Tierney)
+
+o x could previously not be the name of a proto object. Now fixed.
+
+o proto print methods could break str.proto.  Now fixed.
 
 VERSION 0.3-8
 
