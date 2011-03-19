@@ -1,3 +1,9 @@
+VERSION 0.3-9.1
+
+o minor change to pass R CMD CHECK
+
+o removed one file that was not relevant to this version of proto
+
 VERSION 0.3-9
 
 o minor changes to satisfy subtitute/eval changes in R 2.13.0 (thanks to

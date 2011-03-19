@@ -6,7 +6,7 @@ proto <- function (. = parent.env(envir), expr = {}, envir =
     # eval(substitute(eval(quote({ expr }))), envir)
     dots <- list(...); names <- names(dots)
     for (i in seq(length = length(dots))) { 
-      assign(names[i], dots[[i]], env = envir)
+      assign(names[i], dots[[i]], envir = envir)
       if (!identical(funEnvir, FALSE) && is.function(dots[[i]])) 
         environment(envir[[names[i]]]) <- funEnvir
     }
@@ -16,8 +16,8 @@ proto <- function (. = parent.env(envir), expr = {}, envir =
 
 as.proto <- function(x, ...) UseMethod("as.proto")
 as.proto.environment <- function(x, ...) {
-	assign(".that", x, env = x)
-	assign(".super", parent.env(x), env = x)
+	assign(".that", x, envir = x)
+	assign(".super", parent.env(x), envir = x)
 	structure(x, class = c("proto", "environment"))
 }
 as.proto.proto <- function(x, ...) x
@@ -32,7 +32,7 @@ as.proto.list <- function(x, envir, parent, all.names = FALSE, ...,
        }
        for(s in names(x))
           if (SELECT(x[[s]])) {
-             assign(s, x[[s]], env = envir)
+             assign(s, x[[s]], envir = envir)
              if (is.function(x[[s]]) && !identical(funEnvir, FALSE)) 
 		environment(envir[[s]]) <- funEnvir
           }
@@ -54,12 +54,12 @@ isnot.function <- function(x) ! is.function(x)
 function (this, x, args) {
    inh <- substr(x, 1, 2) != ".."
    p <- parent.frame()
-   res <- get(x, env = this, inherits = inh)
+   res <- get(x, envir = this, inherits = inh)
    is.function <- is.function(res)
    is.that <- match(deparse(substitute(this)), c(".that", ".super"),
        nomatch = 0)
    if (is.function && !is.that) {
-       res <- function(...) get(x, env = this, inherits = inh)(this, ...)
+       res <- function(...) get(x, envir = this, inherits = inh)(this, ...)
        class(res) <- c("instantiatedProtoMethod", "function")
        attr(res, "this") <- this
        if (!missing(args)) res <- do.call(res, args, envir = p)
