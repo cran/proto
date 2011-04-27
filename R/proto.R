@@ -74,7 +74,7 @@ print.instantiatedProtoMethod <- function(x, ...) {
   # print(unclass(x))
   cat("proto method (instantiated with ", name.proto(attr(x, "this")), 
     "): ", sep = "")
-  print(eval(body(x)[[1]]))
+  print(eval(body(x)[[1]], envir = environment(x)))
 }
 
 # modified from Tom Short's original
