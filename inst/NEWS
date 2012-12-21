@@ -1,4 +1,10 @@
 
+VERSION 0.3-10
+
+o added NAMESPACE file
+
+o removed junk files
+
 VERSION 0.3-9.2
 
 o fixed bug in print.instantiatedProtoMethod

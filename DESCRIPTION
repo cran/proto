@@ -1,6 +1,6 @@
 Package: proto
-Version: 0.3-9.2
-Date: 2011-04-27
+Version: 0.3-10
+Date: 2012-12-21
 Title: Prototype object-based programming
 Author: Louis Kates, Thomas Petzoldt
 Maintainer: Gabor Grothendieck <ggrothendieck@gmail.com>
@@ -9,6 +9,6 @@ Description: An object oriented system using object-based, also called
 Suggests: graph, Rgraphviz
 License: GPL-2
 URL: http://r-proto.googlecode.com
-Packaged: 2012-10-29 08:59:31 UTC; ripley
+Packaged: 2012-12-22 16:03:20 UTC; Louis
 Repository: CRAN
-Date/Publication: 2012-10-29 08:59:31
+Date/Publication: 2012-12-22 21:51:44
