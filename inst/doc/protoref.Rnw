@@ -7,12 +7,13 @@
 
 \documentclass[a4]{article}
 \usepackage{Rd}
+\usepackage{Sweave}
 
 %\newlength{\refcardwidth}
 %\setlength{\refcardwidth}{20cm}
 
-% \usepackage{c:/PROGRA~1/R/RW2010~1/share/texmf/Sweave}
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \pagestyle{empty}
 
 %\begin{landscape}
